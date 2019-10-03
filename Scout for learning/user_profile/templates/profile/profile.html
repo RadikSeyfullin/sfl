@@ -1,0 +1,67 @@
+{% extends 'profile.html' %}
+
+{% block content %}
+{% load static %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="grid_4">
+                <div class="infobox-left">
+                    <hr style="color:#fff; border: 1px solid #fff;">
+                    <div class="profile-red">
+                        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+Редактировать профиль</a>
+                    </div>
+                    <div class="profile-status">
+                        <i class="fa fa-check" aria-hidden="true"></i> Ваш профиль полностью заполнен
+                    </div>
+                    <div class="profile-info">
+                    <hr style="color:#fff; border: 1px solid #fff;">
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="grid_8">
+                <div class="visited-courses">
+                    <p>Посещённые курсы</p>
+                    {% if ctu.count == 0 %}
+                    <div class="no-courses">
+                      <p>Нету посещённых курсов :(</p>
+                    </div>
+                    {% endif %}
+                    <div class="owl-carousel owl-theme">
+                      {% for course in courses %}
+                        {% for c in ctu %}
+                          {% if course.id == c.id_course_id %}
+                            <div class="course{% if c.finish %} complete-course {% endif %}">
+                                <p>{{course.title}}</p>
+                                {{course.description|truncatechars:110}}
+                                <div class="author-course">
+                                  <span>Автор: {{course.author}}</span>
+                                </div>
+                            </div>
+                          {% endif %}
+                        {% endfor %}
+                      {% endfor %}
+                    </div>
+                    <br>
+                    <div class="green-sq"></div> - пройденный курс
+                    <div class="blue-sq"></div> - незаконченный курс
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="grid_12">
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

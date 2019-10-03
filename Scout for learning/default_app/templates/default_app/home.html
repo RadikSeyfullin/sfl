@@ -1,0 +1,168 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% load static %}
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="grid_12">
+                <div class="bord-1 block-1 clearfix">
+                  <!--DIAGRAM-->
+                  {% if request.user.is_authenticated %}
+              			<div id="diagram" style="width: 100%; text-align: center;"></div>
+                  {% else %}
+                    <div id="diagram"></div>
+                  {% endif %}
+                    <div class="get">
+                			<div class="arc">
+                				<span class="text">JavaScript</span>
+                				<input type="hidden" class="percent" value="95" />
+                				<input type="hidden" class="color" value="#97BE0D" />
+                			</div>
+                			<div class="arc">
+                				<span class="text">CSS3</span>
+                				<input type="hidden" class="percent" value="90" />
+                				<input type="hidden" class="color" value="#D84F5F" />
+                			</div>
+                			<div class="arc">
+                				<span class="text">HTML5</span>
+                				<input type="hidden" class="percent" value="80" />
+                				<input type="hidden" class="color" value="#88B8E6" />
+                			</div>
+                			<div class="arc">
+                				<span class="text">PHP</span>
+                				<input type="hidden" class="percent" value="53" />
+                				<input type="hidden" class="color" value="#BEDBE9" />
+                			</div>
+                			<div class="arc">
+                				<span class="text">MySQL</span>
+                				<input type="hidden" class="percent" value="45" />
+                				<input type="hidden" class="color" value="#EDEBEE" />
+                			</div>
+                		</div>
+                  <!--DIAGRAM-->
+                    {% if success_reg %}
+                    <div class="extra-wrap dropcap v1 clearfix">
+                      <div class="dropcap_item clearfix">
+                        <div class="left">
+
+                            {{success_reg}}
+
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <div class="extra-wrap dropcap v1 clearfix hidden">
+                      <div class="dropcap_item clearfix">
+                        <div class="left">
+                          {% if request.user.first_name and request.user.last_name %}
+                            {{ request.user.first_name }} {{ request.user.last_name }}, вы успешно авторизованы
+                          {% else %}
+                            {{ request.user.username }}, вы успешно авторизованы
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    {% else %}
+                    <div class="extra-wrap dropcap v1 clearfix">
+                        <div class="dropcap_item clearfix">
+                            <div class="left"><span>Вход</span></div><div class="reg"><span>Регистрация</span></div>
+                        </div>
+                        <form action="{% url 'login' %}" method="post" class="loginform">
+                          {% csrf_token %}
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                  {% if login_error %}
+                                    <label class="error">{{ login_error }}</label>
+                                  {% endif %}
+                                    <div class="title-1"><label for="login">Введите имя пользователя</label></div>
+                                    <div class="text"><input id="login" name="username" type="text" placeholder="Имя"></div>
+                                </div>
+                            </div>
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                    <div class="title-1"><label for="password">Введите свой пароль</label></div>
+                                    <input type="password" name="password" id="password" placeholder="Пароль">
+                                </div>
+                            </div>
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                    <input type="submit" value="Войти" class="submit">
+                                    <span class="forgot-password"><a href="#">Забыли пароль?</a></span>
+                                </div>
+                            </div>
+                        </form>
+
+
+                        <form action="{% url 'register' %}" method="post" class="regform">
+                          {% csrf_token %}
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                  {% if register_error %}
+                                    <label class="error">{{ register_error }}</label>
+                                  {% endif %}
+                                    <div class="title-1"><label for="emailreg">Введите свой Email</label></div>
+                                    <div class="text"><input id="emailreg" type="email" name="email" placeholder="Email"></div>
+                                </div>
+                            </div>
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                    <div class="title-1"><label for="loginreg">Введите своё имя</label></div>
+                                    <div class="text"><input id="loginreg" name="username" type="text" placeholder="Имя"></div>
+                                </div>
+                            </div>
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                    <div class="title-1"><label for="passwordreg">Введите свой пароль</label></div>
+                                    <input type="password" name="password" id="passwordreg" placeholder="Пароль">
+                                </div>
+                            </div>
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                    <div class="title-1">
+                                        <label for="p_password">Введите повторно свой пароль</label>
+                                    </div>
+                                    <input type="password" id="p_password" name="p_password" placeholder="Пароль (повторно)">
+                                </div>
+
+                            </div>
+                            <div class="dropcap_item clearfix">
+                                <div class="extra-wrap">
+                                    <input type="submit" value="Зарегестрироваться" class="submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="grid_6">
+                <p class="title-2">Привет <span>!</span></p>
+                <div class="text-2">Мы предлагаем Вам универсальную систему сопровождения обучения для студентов колледжей и ВУЗов. У нас вы можете подобрать себе курс.</div>
+            </div>
+            <div class="grid_6">
+                <div class="block-2 clearfix">
+                    <div class="img-circle img-ind"><img src="{% static 'images/page-1_img-2.png' %}" alt=""></div>
+                    <div>
+                        <div>Прочитайте подробнее о нас</div>
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid_12 bord-2"></div>
+        </div>
+        <div class="row">
+            <div class="grid_12">
+                <div class="search-form">
+                    <h2>Подберите себе лучший курс</h2>
+                    <p><i class="fa fa-search search-icon fa-2x" aria-hidden="true"></i><input id="fstsrch" class="first-search" type="text" placeholder="Введите свою специальность"><input id="sndsrch" class="second-search" type="text" placeholder="Введите свой город/населённый пункт"><input class="search" type="submit" value="Подобрать"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
